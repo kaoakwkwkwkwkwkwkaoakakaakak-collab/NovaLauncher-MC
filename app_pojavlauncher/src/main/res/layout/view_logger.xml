@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/top_log_view"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="#111419"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/log_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:text="@string/log_view_label_log_output"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/log_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="6dp"
+        android:textColor="#8D909A"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
+        app:layout_constraintStart_toEndOf="@+id/log_title"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/log_view_copy"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/nova_log_copy"
+        android:padding="11dp"
+        android:src="@android:drawable/ic_menu_save"
+        app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
+        app:layout_constraintEnd_toStartOf="@+id/log_view_share"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/log_view_share"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/nova_log_share"
+        android:padding="11dp"
+        android:src="@android:drawable/ic_menu_share"
+        app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
+        app:layout_constraintEnd_toStartOf="@+id/content_log_toggle_autoscroll"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/content_log_toggle_autoscroll"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginHorizontal="4dp"
+        android:minWidth="0dp"
+        android:paddingHorizontal="10dp"
+        android:textSize="11sp"
+        android:textOff="@string/log_view_button_scroll_off"
+        android:textOn="@string/log_view_button_scroll_on"
+        app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
+        app:layout_constraintEnd_toStartOf="@+id/content_log_toggle_log"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ToggleButton
+        android:id="@+id/content_log_toggle_log"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginHorizontal="4dp"
+        android:minWidth="0dp"
+        android:paddingHorizontal="10dp"
+        android:textSize="11sp"
+        android:textOff="@string/log_view_button_output_off"
+        android:textOn="@string/log_view_button_output_on"
+        app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
+        app:layout_constraintEnd_toStartOf="@+id/log_view_cancel"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/log_view_cancel"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:padding="11dp"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        app:layout_constraintBottom_toBottomOf="@+id/top_log_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/log_filter_bar"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="#0C0F14"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/top_log_view">
+
+        <EditText
+            android:id="@+id/log_search"
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_weight="1"
+            android:background="#1A1E26"
+            android:hint="@string/nova_log_search"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingHorizontal="10dp"
+            android:singleLine="true"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#6E737D"
+            android:textSize="12sp" />
+
+        <ToggleButton
+            android:id="@+id/log_filter_error"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="6dp"
+            android:minWidth="0dp"
+            android:paddingHorizontal="9dp"
+            android:textOff="@string/nova_log_error"
+            android:textOn="@string/nova_log_error"
+            android:textSize="10sp" />
+
+        <ToggleButton
+            android:id="@+id/log_filter_warn"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:minWidth="0dp"
+            android:paddingHorizontal="9dp"
+            android:textOff="@string/nova_log_warn"
+            android:textOn="@string/nova_log_warn"
+            android:textSize="10sp" />
+
+        <ToggleButton
+            android:id="@+id/log_filter_wrap"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="4dp"
+            android:minWidth="0dp"
+            android:paddingHorizontal="9dp"
+            android:textOff="@string/nova_log_wrap"
+            android:textOn="@string/nova_log_wrap"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+    <com.kdt.DefocusableScrollView
+        android:id="@+id/content_log_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/log_filter_bar">
+
+        <HorizontalScrollView
+            android:id="@+id/content_log_hscroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:scrollbars="horizontal">
+
+            <TextView
+                android:id="@+id/content_log_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:textColor="#D6D9E0"
+                android:textSize="11sp"
+                android:textIsSelectable="true" />
+
+        </HorizontalScrollView>
+
+    </com.kdt.DefocusableScrollView>
+
+</merge>

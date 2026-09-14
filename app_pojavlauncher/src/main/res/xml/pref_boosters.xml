@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <net.kdt.pojavlaunch.prefs.BackButtonPreference/>
+
+    <PreferenceCategory android:title="@string/nova_boosters_category">
+
+        <SwitchPreference
+            android:key="boostMaster"
+            android:title="@string/nova_boost_master_title"
+            android:summary="@string/nova_boost_master_summary"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_px_experiment"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="boostToggles"
+        android:title="@string/nova_boosters_toggles">
+
+        <SwitchPreference
+            android:key="boostChunkThreads"
+            android:title="@string/nova_boost_chunk_title"
+            android:summary="@string/nova_boost_chunk_summary"
+            android:defaultValue="false"
+            android:dependency="boostMaster"/>
+
+        <SwitchPreference
+            android:key="boostAggressiveGc"
+            android:title="@string/nova_boost_gc_title"
+            android:summary="@string/nova_boost_gc_summary"
+            android:defaultValue="false"
+            android:dependency="boostMaster"/>
+
+        <SwitchPreference
+            android:key="boostJitTuning"
+            android:title="@string/nova_boost_jit_title"
+            android:summary="@string/nova_boost_jit_summary"
+            android:defaultValue="false"
+            android:dependency="boostMaster"/>
+
+        <SwitchPreference
+            android:key="boostTextureStreaming"
+            android:title="@string/nova_boost_texture_title"
+            android:summary="@string/nova_boost_texture_summary"
+            android:defaultValue="false"
+            android:dependency="boostMaster"/>
+
+        <SwitchPreference
+            android:key="boostDisableVsync"
+            android:title="@string/nova_boost_vsync_title"
+            android:summary="@string/nova_boost_vsync_summary"
+            android:defaultValue="false"
+            android:dependency="boostMaster"/>
+
+        <SwitchPreference
+            android:key="boostBigCoreAffinity"
+            android:title="@string/nova_boost_affinity_title"
+            android:summary="@string/nova_boost_affinity_summary"
+            android:defaultValue="false"
+            android:dependency="boostMaster"/>
+
+        <SwitchPreference
+            android:key="boostHeapPrealloc"
+            android:title="@string/nova_boost_prealloc_title"
+            android:summary="@string/nova_boost_prealloc_summary"
+            android:defaultValue="false"
+            android:dependency="boostMaster"/>
+
+        <SwitchPreference
+            android:key="boostReduceSoundChannels"
+            android:title="@string/nova_boost_sound_title"
+            android:summary="@string/nova_boost_sound_summary"
+            android:defaultValue="false"
+            android:dependency="boostMaster"/>
+
+        <SwitchPreference
+            android:key="boostDisableAnimations"
+            android:title="@string/nova_boost_anim_title"
+            android:summary="@string/nova_boost_anim_summary"
+            android:defaultValue="false"
+            android:dependency="boostMaster"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
