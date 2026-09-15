@@ -31,8 +31,13 @@ public final class NovaShizuku {
         }
     }
 
+    private static boolean isSupportedApi() {
+        return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M;
+    }
+
     @Nullable
     private static Class<?> shizukuClass() {
+        if (!isSupportedApi()) return null;
         try {
             return Class.forName(SHIZUKU_CLASS);
         } catch (ClassNotFoundException e) {
@@ -41,7 +46,7 @@ public final class NovaShizuku {
     }
 
     public static boolean isInstalled(Context context) {
-        if (context == null) return false;
+        if (context == null || !isSupportedApi()) return false;
         try {
             context.getPackageManager().getPackageInfo(SHIZUKU_PACKAGE, 0);
             return true;
