@@ -32,7 +32,7 @@ public final class NovaShizuku {
     }
 
     private static boolean isSupportedApi() {
-        return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M;
+        return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N;
     }
 
     @Nullable
