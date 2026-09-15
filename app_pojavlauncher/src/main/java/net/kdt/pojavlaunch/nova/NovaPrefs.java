@@ -19,6 +19,12 @@ public final class NovaPrefs {
     public static final String KEY_BOOST_SOUND = "boostReduceSoundChannels";
     public static final String KEY_BOOST_ANIM = "boostDisableAnimations";
 
+    // Shizuku / Sui integration
+    public static final String KEY_SHIZUKU_ENABLE = "shizukuEnable";
+    public static final String KEY_SHIZUKU_PHANTOM = "shizukuPhantom";
+    public static final String KEY_SHIZUKU_PRIORITY = "shizukuPriority";
+    public static final String KEY_SHIZUKU_LOGCAT = "shizukuLogcat";
+
     private NovaPrefs() {}
 
     private static SharedPreferences prefs() {

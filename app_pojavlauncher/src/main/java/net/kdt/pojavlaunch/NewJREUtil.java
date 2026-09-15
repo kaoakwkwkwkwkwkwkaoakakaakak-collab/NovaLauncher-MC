@@ -43,17 +43,48 @@ public class NewJREUtil {
         MultiRTUtils.writeLastUpdateTime(internalRuntime.name, System.currentTimeMillis() / 1000L);
     }
 
+    /**
+     * Install a runtime straight out of the APK assets, if this build bundles it.
+     * @return true if the runtime is now installed from assets.
+     */
+    private static boolean unpackBundledRuntime(AssetManager assetManager, InternalRuntime internalRuntime) {
+        String base = internalRuntime.path;
+        String platformBinFile = "bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz";
+        try {
+            String bundledVersion = Tools.read(assetManager.open(base + "/version"));
+            String installed = MultiRTUtils.readInternalRuntimeVersion(internalRuntime.name);
+            if (bundledVersion.equals(installed)) return true;
+            try (java.io.InputStream universal = assetManager.open(base + "/universal.tar.xz");
+                 java.io.InputStream platform = assetManager.open(base + "/" + platformBinFile)) {
+                MultiRTUtils.installRuntimeNamedBinpack(universal, platform, internalRuntime.name, bundledVersion);
+            }
+            MultiRTUtils.postPrepare(internalRuntime.name);
+            MultiRTUtils.forceReread(internalRuntime.name);
+            Log.i("NewJreUtil", "Installed bundled runtime " + internalRuntime.name);
+            return true;
+        } catch (IOException e) {
+            // This build simply does not bundle that runtime (noruntime flavour); fall back to network.
+            Log.i("NewJreUtil", "No bundled runtime for " + internalRuntime.name + ": " + e.getMessage());
+            return false;
+        }
+    }
+
     private static void checkInternalRuntime(AssetManager assetManager, InternalRuntime internalRuntime) throws RuntimeSelectionException {
         String remote_runtime_version;
         String installed_runtime_version = MultiRTUtils.readInternalRuntimeVersion(internalRuntime.name);
         if(installed_runtime_version != null && checkLastUpdateTime(internalRuntime)) return;
+        // Prefer the copy shipped inside the APK: it works with no network and no signature server.
+        if(installed_runtime_version == null && unpackBundledRuntime(assetManager, internalRuntime)) {
+            writeLastUpdateTime(internalRuntime);
+            return;
+        }
         try {
             remote_runtime_version = getRemoteRuntimeVersion(internalRuntime);
         }catch (IOException exc) {
             Log.i("NewJreUtil", "Failed to get remote runtime version", exc);
             // We failed to get the version of the runtime available on the web server.
             // Let's just hope that we have an internal version installed in that case.
-            if(installed_runtime_version == null)
+            if(installed_runtime_version == null && !unpackBundledRuntime(assetManager, internalRuntime))
                 throw new RuntimeSelectionException(RuntimeSelectionException.RUNTIME_STATE_INTERNAL_RUNTIME_MISSING, internalRuntime.majorVersion);
             return;
         }

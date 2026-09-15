@@ -135,6 +135,17 @@
             </intent-filter>
         </provider>
 
+
+        <!-- Shizuku / Sui. Optional: harmless when the Shizuku app is not installed. -->
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            android:authorities="${applicationId}.shizuku"
+            android:multiprocess="false"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL"
+            tools:ignore="ExportedContentProvider" />
+
         <service android:name="net.kdt.pojavlaunch.services.ProgressService"
             android:foregroundServiceType="dataSync"/>
         <service android:name="net.kdt.pojavlaunch.services.GameService" android:process=":game"
@@ -143,7 +154,10 @@
                 android:value="This application is intended to run a 3rd-party piece of software which cannot be managed using the activity's saved instance state. This service is used for background persistence of this piece of software."/>
         </service>
     </application>
+    <uses-permission android:name="moe.shizuku.manager.permission.API_V23" />
+
     <queries>
+        <package android:name="moe.shizuku.privileged.api"/>
         <package android:name="git.mojo.ffmpeg"/>
         <package android:name="git.mojo.angle"/>
         <package android:name="git.mojo.zink"/>

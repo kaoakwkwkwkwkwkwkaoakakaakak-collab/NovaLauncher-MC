@@ -63,7 +63,7 @@ public final class NovaErrorFixer {
         sb.append("Explain the cause in plain language and give numbered, concrete steps to fix it.\n");
         sb.append("Be brief. Do not invent settings that do not exist.\n");
         sb.append("Useful settings the user can change: renderer (holy-gl4es, Zink, Freedreno, ");
-        sb.append("MobileGlues, Krypton), RAM allocation, Java version, FPS Booster toggles.\n\n");
+        sb.append("MobileGlues), RAM allocation, Java version, FPS Booster toggles.\n\n");
         sb.append(NovaAI.describeDevice(context)).append('\n');
         sb.append("Renderer in use: ").append(
                 net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_RENDERER).append('\n');

@@ -169,11 +169,19 @@ public class JREUtils {
         }
     }
 
+    /**
+     * Legacy entry point kept for the AWT / installer path.
+     *
+     * The JVM itself is started by {@link net.kdt.pojavlaunch.utils.jre.JavaRunner#startJvm}; this
+     * method only performs the environment preparation that used to live here, so callers that
+     * have already invoked startJvm must not call it again.
+     */
     public static void launchJavaVM(final AppCompatActivity activity, final Runtime runtime, File gameDirectory, final List<String> JVMArgs, final String userArgsString) throws Throwable {
-
         // Force LWJGL to use the Freetype library intended for it, instead of using the one
         // that we ship with Java (since it may be older than what's needed)
-        //
+        JVMArgs.add("-Dorg.lwjgl.freetype.libname=" + Tools.NATIVE_LIB_DIR + "/libfreetype.so");
+        JVMArgs.addAll(parseJavaArguments(userArgsString));
+        if (gameDirectory != null) chdir(gameDirectory.getAbsolutePath());
         Tools.fullyExit();
     }
 
@@ -259,6 +267,13 @@ public class JREUtils {
                 break;
             case "opengles3_ltw" :
                 renderLibrary = "libltw.so";
+                useGles = true;
+                glesVersion = 3;
+                break;
+            case "mobileglues":
+                // MobileGlues is a GLES-backed GL implementation. It needs a real GLES 3.x
+                // context and must not go through the gl4es path.
+                renderLibrary = "libmobileglues.so";
                 useGles = true;
                 glesVersion = 3;
                 break;

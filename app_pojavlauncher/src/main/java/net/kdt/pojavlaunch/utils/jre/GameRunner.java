@@ -267,6 +267,10 @@ public class GameRunner {
 
         javaArgList.addAll(JREUtils.parseJavaArguments(instance.getLaunchArgs()));
 
+        // Apply the optional Shizuku tweaks (phantom process limit, priority) right before the
+        // JVM comes up. No-op when Shizuku is absent or disabled.
+        net.kdt.pojavlaunch.nova.NovaShizuku.applyBeforeLaunch(activity.getApplicationContext());
+
         JREUtils.setEnviroimentForGame(activity, rendererName);
         JREUtils.chdir(instance.getGameDirectory().getAbsolutePath());
 
@@ -439,8 +443,10 @@ public class GameRunner {
     public static @NonNull String pickRuntime(Instance instance, int targetJavaVersion) {
         String runtime = Tools.getSelectedRuntime(instance);
         String profileRuntime = instance.selectedRuntime;
-        Runtime pickedRuntime = MultiRTUtils.read(runtime);
-        if(runtime == null || pickedRuntime.javaVersion == 0 || pickedRuntime.javaVersion < targetJavaVersion) {
+        // read() must not be called with a null name: the previous code dereferenced the result
+        // before the null check, so a fresh instance with no runtime crashed here.
+        Runtime pickedRuntime = runtime == null ? null : MultiRTUtils.read(runtime);
+        if(runtime == null || pickedRuntime == null || pickedRuntime.javaVersion == 0 || pickedRuntime.javaVersion < targetJavaVersion) {
             String preferredRuntime = MultiRTUtils.getNearestJreName(targetJavaVersion);
             if(preferredRuntime == null) throw new RuntimeException("Failed to autopick runtime!");
             if(profileRuntime != null) {

@@ -44,7 +44,6 @@ public final class NovaOptimizer {
         prompt.append("vulkan_zink = Zink over Vulkan, strong on modern mid and high devices\n");
         prompt.append("freedreno_kgsl = Freedreno, Adreno GPUs only, very fast when supported\n");
         prompt.append("mobileglues = MobileGlues, modern GL4ES successor, good on newer chips\n");
-        prompt.append("krypton = Krypton wrapper, low overhead Vulkan translation\n");
         prompt.append("\nAvailable performance toggle keys:\n");
         prompt.append("boostChunkThreads, boostAggressiveGc, boostJitTuning, boostTextureStreaming, ");
         prompt.append("boostDisableVsync, boostBigCoreAffinity, boostHeapPrealloc, ");

@@ -562,8 +562,7 @@
     <string name="nova_mods_installing">Installing %1$s…</string>
     <string name="nova_mods_done">%1$s installed</string>
     <string name="nova_mods_failed">Could not install %1$s</string>
-    <string name="mcl_setting_renderer_mobileglues">MobileGlues - modern GL4ES successor, fast</string>
-    <string name="mcl_setting_renderer_krypton">Krypton (Vulkan) - low overhead wrapper</string>
+    <string name="mcl_setting_renderer_mobileglues">MobileGlues - modern GL4ES successor (GLES 3.2, best for 1.17+)</string>
     <string name="nova_mods_summary">Browse and install mods from Modrinth</string>
     <string name="nova_log_search">Filter output</string>
     <string name="nova_log_error">ERR</string>
@@ -578,4 +577,28 @@
     <string name="nova_ai_key_hint">Leave empty to use the built-in key</string>
     <string name="nova_ai_key_default">Using built-in key</string>
     <string name="nova_ai_key_custom">Using custom key</string>
+
+    <!-- Shizuku integration -->
+    <string name="nova_shizuku_title">Shizuku integration</string>
+    <string name="nova_shizuku_summary">Optional. Removes the Android 12+ process killer, boosts priority and reads full crash logs</string>
+    <string name="nova_shizuku_category">Service</string>
+    <string name="nova_shizuku_status_title">Shizuku status</string>
+    <string name="nova_shizuku_status_checking">Checking\u2026</string>
+    <string name="nova_shizuku_not_installed">Not installed. Install Shizuku or Sui, then tap here again</string>
+    <string name="nova_shizuku_not_running">Installed but not running. Start Shizuku, then tap here again</string>
+    <string name="nova_shizuku_no_permission">Running. Tap to grant NovaLauncher permission</string>
+    <string name="nova_shizuku_ready">Connected and ready</string>
+    <string name="nova_shizuku_enable_title">Use Shizuku</string>
+    <string name="nova_shizuku_enable_summary">Let NovaLauncher run privileged commands. The launcher works fine without this</string>
+    <string name="nova_shizuku_features">Features</string>
+    <string name="nova_shizuku_phantom_title">Remove phantom process limit</string>
+    <string name="nova_shizuku_phantom_summary">Stops Android 12+ from killing the game mid-session. The biggest stability win on modern devices</string>
+    <string name="nova_shizuku_priority_title">Boost game priority</string>
+    <string name="nova_shizuku_priority_summary">Gives the game process a higher scheduling priority for smoother frame pacing</string>
+    <string name="nova_shizuku_logcat_title">Full system crash logs</string>
+    <string name="nova_shizuku_logcat_summary">Include the whole system logcat in crash reports instead of only NovaLauncher lines</string>
+    <string name="nova_shizuku_grant_title">Grant all permissions</string>
+    <string name="nova_shizuku_grant_summary">One tap: all-files access, notifications and battery optimisation exemption</string>
+    <string name="nova_shizuku_grant_ok">Permissions granted</string>
+    <string name="nova_shizuku_grant_fail">Some permissions could not be granted</string>
 </resources>

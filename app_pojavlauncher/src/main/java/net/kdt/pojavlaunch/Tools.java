@@ -34,7 +34,9 @@ import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -389,11 +391,23 @@ public final class Tools {
                                     (Activity) ctx, errMsg, e);
                         } else {
                             ClipboardManager mgr = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
-                            mgr.setPrimaryClip(ClipData.newPlainText("error", printToString(e)));
+                            mgr.setPrimaryClip(ClipData.newPlainText("error", collectReport(e)));
                         }
                     })
                     .setCancelable(!exitIfOk);
-            builder.show();
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            // Keep the plain "copy the crash" path that the AI button replaced: long-pressing
+            // the neutral button copies the full report (with the system log when Shizuku is on).
+            Button neutral = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+            if (neutral != null) {
+                neutral.setOnLongClickListener(v -> {
+                    ClipboardManager mgr = (ClipboardManager) ctx.getSystemService(Context.CLIPBOARD_SERVICE);
+                    mgr.setPrimaryClip(ClipData.newPlainText("error", collectReport(e)));
+                    Toast.makeText(ctx, android.R.string.copy, Toast.LENGTH_SHORT).show();
+                    return true;
+                });
+            }
         };
 
         if (ctx instanceof Activity) {
@@ -401,6 +415,25 @@ public final class Tools {
         } else {
             runnable.run();
         }
+    }
+
+    /**
+     * Build a crash report. When the user has enabled the Shizuku full-log option, the system
+     * logcat is appended, which captures native/driver errors that never reach our own logger.
+     */
+    public static String collectReport(Throwable e) {
+        StringBuilder sb = new StringBuilder(printToString(e));
+        try {
+            java.util.List<String> systemLog =
+                    net.kdt.pojavlaunch.nova.NovaShizuku.readSystemLog(400);
+            if (!systemLog.isEmpty()) {
+                sb.append("\n\n--- system logcat (via Shizuku) ---\n");
+                for (String line : systemLog) sb.append(line).append('\n');
+            }
+        } catch (Throwable ignored) {
+            // Never let report collection mask the original crash.
+        }
+        return sb.toString();
     }
 
     /**

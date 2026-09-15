@@ -388,8 +388,8 @@ public class AWTActivity extends BaseActivity implements View.OnTouchListener {
 
             JavaRunner.nativeSetupExit(this.getApplicationContext());
             JavaRunner.startJvm(runtime, javaArgList, Collections.singletonList(modFile.getAbsolutePath()), mainClass, Collections.emptyList());
-
-            JREUtils.launchJavaVM(this, runtime,null,javaArgList, LauncherPreferences.PREF_CUSTOM_JAVA_ARGS);
+            // NOTE: do NOT call JREUtils.launchJavaVM() here. startJvm() already owns this
+            // process' JVM; the second call used to tear the process down immediately.
         } catch (Throwable th) {
             Tools.showError(this, th, true);
         }

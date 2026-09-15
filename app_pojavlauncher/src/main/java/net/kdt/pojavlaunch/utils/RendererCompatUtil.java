@@ -40,7 +40,6 @@ public class RendererCompatUtil {
         // LTW is an optional dependency
         boolean appHasLtw = new File(Tools.NATIVE_LIB_DIR, "libltw.so").exists();
         boolean appHasMobileGlues = new File(Tools.NATIVE_LIB_DIR, "libmobileglues.so").exists();
-        boolean appHasKrypton = new File(Tools.NATIVE_LIB_DIR, "libkrypton.so").exists();
         List<String> rendererIds = new ArrayList<>(defaultRenderers.length);
         List<String> rendererNames = new ArrayList<>(defaultRendererNames.length);
         for(int i = 0; i < defaultRenderers.length; i++) {
@@ -50,8 +49,7 @@ public class RendererCompatUtil {
             // freedreno is available only on Adreno GPUs
             if(rendererId.contains("freedreno") && (!(GLInfoUtils.getGlInfo().isAdreno()) || !deviceCompatibleMesa)) continue;
             if(rendererId.contains("ltw") && (!deviceHasOpenGLES3 || !appHasLtw)) continue;
-            if(rendererId.equals("mobileglues") && (!deviceHasOpenGLES3 || !appHasMobileGlues)) continue;
-            if(rendererId.equals("krypton") && (!deviceHasVulkan || !appHasKrypton)) continue;
+            if(rendererId.equals("mobileglues") && (JREUtils.getDetectedVersion() < 3 || !appHasMobileGlues)) continue;
             rendererIds.add(rendererId);
             rendererNames.add(defaultRendererNames[i]);
         }

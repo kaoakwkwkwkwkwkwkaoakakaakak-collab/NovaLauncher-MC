@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <net.kdt.pojavlaunch.prefs.BackButtonPreference/>
+
+    <PreferenceCategory android:title="@string/nova_shizuku_category">
+
+        <Preference
+            android:key="shizukuStatus"
+            android:title="@string/nova_shizuku_status_title"
+            android:summary="@string/nova_shizuku_status_checking"
+            android:icon="@drawable/ic_px_experiment"/>
+
+        <SwitchPreference
+            android:key="shizukuEnable"
+            android:title="@string/nova_shizuku_enable_title"
+            android:summary="@string/nova_shizuku_enable_summary"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="shizukuFeatures"
+        android:title="@string/nova_shizuku_features">
+
+        <SwitchPreference
+            android:key="shizukuPhantom"
+            android:title="@string/nova_shizuku_phantom_title"
+            android:summary="@string/nova_shizuku_phantom_summary"
+            android:defaultValue="true"
+            android:dependency="shizukuEnable"/>
+
+        <SwitchPreference
+            android:key="shizukuPriority"
+            android:title="@string/nova_shizuku_priority_title"
+            android:summary="@string/nova_shizuku_priority_summary"
+            android:defaultValue="true"
+            android:dependency="shizukuEnable"/>
+
+        <SwitchPreference
+            android:key="shizukuLogcat"
+            android:title="@string/nova_shizuku_logcat_title"
+            android:summary="@string/nova_shizuku_logcat_summary"
+            android:defaultValue="false"
+            android:dependency="shizukuEnable"/>
+
+        <Preference
+            android:key="shizukuGrant"
+            android:title="@string/nova_shizuku_grant_title"
+            android:summary="@string/nova_shizuku_grant_summary"
+            android:dependency="shizukuEnable"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
