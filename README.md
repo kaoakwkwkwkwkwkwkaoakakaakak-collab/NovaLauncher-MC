@@ -42,9 +42,35 @@ Minecraft version and mod loader. Mods install into the instance `mods` director
 can be enabled or disabled in place.
 
 ### Renderers
-Adds MobileGlues and Krypton alongside the existing holy-gl4es, Zink, Freedreno and LTW
-renderers. Each is offered only when the device and the bundled native libraries
-support it.
+Five renderers ship inside the APK: holy-gl4es, Zink (Mesa), Freedreno/Turnip,
+LTW and MobileGlues. Each is offered only when the device supports it.
+
+| Renderer | Best for |
+| --- | --- |
+| holy-gl4es | Older versions, widest compatibility |
+| MobileGlues | 1.17+ on GLES 3.2 devices, Sodium |
+| LTW | Modern versions on Adreno |
+| Zink | Vulkan translation, broad GL support |
+| Freedreno | Adreno GPUs via Turnip |
+
+### Java runtimes
+The full APK bundles Java 8, 17 and 21, so every Minecraft version runs offline.
+The noruntime APK downloads the runtime it needs on first launch.
+
+### Shizuku support (optional)
+Removes the Android 12+ phantom process limit that kills the game mid-session,
+boosts the game process priority, reads the full system logcat for crash reports
+and grants storage/notification/battery permissions in one tap. Works with
+Shizuku or Sui, and the launcher runs normally without it.
+
+### Appearance
+Accent colours, Android 12 dynamic colour, UI scaling, a custom background with
+adjustable opacity, and app-wide screen transitions (slide, fade, zoom, bounce).
+
+### Launcher tools
+Upload the latest log to mclo.gs and get a shareable link, export and import a
+backup of instances, controls and settings, and scan the Wi-Fi network for
+Minecraft worlds opened to LAN.
 
 ## AI configuration
 
