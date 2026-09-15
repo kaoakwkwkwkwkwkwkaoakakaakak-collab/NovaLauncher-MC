@@ -32,12 +32,22 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install NDK and CMake
+      - name: Install NDK, CMake and platform
         run: |
-          sdkmanager --install "ndk;29.0.14206865" "cmake;3.31.6" "platforms;android-36" "build-tools;36.0.0"
+          set -eux
+          # ubuntu-22.04 runners ship the Android SDK already; just add what we need.
+          SDKMANAGER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager"
+          if [ ! -x "$SDKMANAGER" ]; then
+            SDKMANAGER=$(find "$ANDROID_SDK_ROOT/cmdline-tools" -name sdkmanager -type f | head -1)
+          fi
+          echo "Using $SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses >/dev/null 2>&1 || true
+          "$SDKMANAGER" --install \
+            "ndk;29.0.14206865" \
+            "cmake;3.31.6" \
+            "platforms;android-36" \
+            "build-tools;36.0.0"
+          echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/29.0.14206865" >> "$GITHUB_ENV"
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
