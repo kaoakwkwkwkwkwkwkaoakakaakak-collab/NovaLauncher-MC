@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <net.kdt.pojavlaunch.prefs.BackButtonPreference/>
+
+    <PreferenceCategory android:title="@string/nova_tools_logs">
+
+        <Preference
+            android:key="toolsUploadLog"
+            android:title="@string/nova_tools_upload_title"
+            android:summary="@string/nova_tools_upload_summary"
+            android:icon="@drawable/ic_px_console"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/nova_tools_backup">
+
+        <Preference
+            android:key="toolsExport"
+            android:title="@string/nova_tools_export_title"
+            android:summary="@string/nova_tools_export_summary"/>
+
+        <Preference
+            android:key="toolsImport"
+            android:title="@string/nova_tools_import_title"
+            android:summary="@string/nova_tools_import_summary"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/nova_tools_lan">
+
+        <Preference
+            android:key="toolsLanScan"
+            android:title="@string/nova_tools_lan_title"
+            android:summary="@string/nova_tools_lan_summary"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -136,7 +136,6 @@
         </provider>
 
 
-        <!-- Shizuku / Sui. Optional: harmless when the Shizuku app is not installed. -->
         <provider
             android:name="rikka.shizuku.ShizukuProvider"
             android:authorities="${applicationId}.shizuku"

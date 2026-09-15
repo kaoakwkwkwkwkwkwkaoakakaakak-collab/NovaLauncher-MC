@@ -60,6 +60,20 @@
             android:icon="@drawable/ic_px_dynamic"/>
 
         <Preference
+            android:key="theme_screen_setting"
+            android:title="@string/nova_theme_title"
+            android:summary="@string/nova_theme_summary"
+            android:fragment="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceThemeFragment"
+            android:icon="@drawable/ic_px_dynamic"/>
+
+        <Preference
+            android:key="tools_screen_setting"
+            android:title="@string/nova_tools_title"
+            android:summary="@string/nova_tools_summary"
+            android:fragment="net.kdt.pojavlaunch.prefs.screens.LauncherPreferenceToolsFragment"
+            android:icon="@drawable/ic_px_console"/>
+
+        <Preference
             android:key="shizuku_screen_setting"
             android:title="@string/nova_shizuku_title"
             android:summary="@string/nova_shizuku_summary"

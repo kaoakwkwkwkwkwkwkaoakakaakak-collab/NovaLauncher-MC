@@ -52,4 +52,44 @@
         <item>bmclapi</item>
     </string-array>
 
+    <string-array name="nova_accent_names">
+        <item>@string/nova_accent_default</item>
+        <item>@string/nova_accent_blue</item>
+        <item>@string/nova_accent_green</item>
+        <item>@string/nova_accent_purple</item>
+        <item>@string/nova_accent_orange</item>
+        <item>@string/nova_accent_red</item>
+        <item>@string/nova_accent_pink</item>
+        <item>@string/nova_accent_cyan</item>
+        <item>@string/nova_accent_amber</item>
+    </string-array>
+
+    <string-array name="nova_accent_values">
+        <item>default</item>
+        <item>blue</item>
+        <item>green</item>
+        <item>purple</item>
+        <item>orange</item>
+        <item>red</item>
+        <item>pink</item>
+        <item>cyan</item>
+        <item>amber</item>
+    </string-array>
+
+    <string-array name="nova_transition_names">
+        <item>@string/nova_transition_slide</item>
+        <item>@string/nova_transition_fade</item>
+        <item>@string/nova_transition_zoom</item>
+        <item>@string/nova_transition_bounce</item>
+        <item>@string/nova_transition_none</item>
+    </string-array>
+
+    <string-array name="nova_transition_values">
+        <item>slide</item>
+        <item>fade</item>
+        <item>zoom</item>
+        <item>bounce</item>
+        <item>none</item>
+    </string-array>
+
 </resources>

@@ -314,9 +314,6 @@ afterEvaluate {
         registrar.projectJarDependency project(":forge_installer"), "components/forge_installer"
 
 		if (variant.getName().toLowerCase().contains("full")) {
-            // Bundle every runtime Minecraft can ask for so the launcher works offline:
-            //   8  -> <= 1.16          17 -> 1.18 - 1.20.4
-            //   21 -> 1.20.5+          (25 stays download-on-demand, nothing requires it yet)
             registrar.jreRuntimeDependency 8, "components/jre"
             registrar.jreRuntimeDependency 17, "components/jre-new"
             registrar.jreRuntimeDependency 21, "components/jre-21"
@@ -365,13 +362,11 @@ dependencies {
     implementation project(":sdl:jni_bindings")
     // implementation 'net.sourceforge.streamsupport:streamsupport-cfuture:1.7.0'
 
-    // Shizuku / Sui - optional privileged operations. Accessed by reflection in NovaShizuku
-    // so a missing service at runtime is never fatal.
     implementation 'dev.rikka.shizuku:api:13.1.5'
     implementation 'dev.rikka.shizuku:provider:13.1.5'
 
     implementation 'com.google.code.gson:gson:2.11.0'
     implementation 'org.apache.commons:commons-compress:1.26.2'
     implementation 'commons-io:commons-io:2.16.1'
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation files('libs/exp4j-0.4.9-SNAPSHOT.jar')
 }

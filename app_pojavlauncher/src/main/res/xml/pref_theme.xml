@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app2="http://schemas.android.com/apk/res-auto">
+
+    <net.kdt.pojavlaunch.prefs.BackButtonPreference/>
+
+    <PreferenceCategory android:title="@string/nova_theme_colors">
+
+        <SwitchPreference
+            android:key="themeDynamic"
+            android:title="@string/nova_theme_dynamic_title"
+            android:summary="@string/nova_theme_dynamic_summary"
+            android:defaultValue="false"
+            android:icon="@drawable/ic_px_dynamic"/>
+
+        <ListPreference
+            android:key="themeAccent"
+            android:title="@string/nova_theme_accent_title"
+            android:summary="%s"
+            android:entries="@array/nova_accent_names"
+            android:entryValues="@array/nova_accent_values"
+            android:defaultValue="default"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/nova_theme_layout">
+
+        <ListPreference
+            android:key="themeTransition"
+            android:title="@string/nova_theme_transition_title"
+            android:summary="%s"
+            android:entries="@array/nova_transition_names"
+            android:entryValues="@array/nova_transition_values"
+            android:defaultValue="slide"/>
+
+        <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
+            android:key="themeUiScale"
+            android:title="@string/nova_theme_scale_title"
+            android:summary="@string/nova_theme_scale_summary"
+            android:defaultValue="100"
+            app2:showSeekBarValue="true"
+            app2:min="70"
+            android:max="150"
+            app2:seekBarIncrement="5"
+            app2:selectable="false"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/nova_theme_background">
+
+        <Preference
+            android:key="themePickBackground"
+            android:title="@string/nova_theme_pick_title"
+            android:summary="@string/nova_theme_pick_summary"/>
+
+        <SwitchPreference
+            android:key="themeBackground"
+            android:title="@string/nova_theme_bg_enable_title"
+            android:summary="@string/nova_theme_bg_enable_summary"
+            android:defaultValue="false"/>
+
+        <net.kdt.pojavlaunch.prefs.CustomSeekBarPreference
+            android:key="themeBackgroundAlpha"
+            android:title="@string/nova_theme_bg_alpha_title"
+            android:summary="@string/nova_theme_bg_alpha_summary"
+            android:defaultValue="100"
+            android:dependency="themeBackground"
+            app2:showSeekBarValue="true"
+            app2:min="10"
+            android:max="100"
+            app2:seekBarIncrement="5"
+            app2:selectable="false"/>
+
+        <Preference
+            android:key="themeClearBackground"
+            android:title="@string/nova_theme_clear_title"
+            android:summary="@string/nova_theme_clear_summary"
+            android:dependency="themeBackground"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

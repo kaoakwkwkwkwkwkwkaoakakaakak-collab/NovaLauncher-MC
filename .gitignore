@@ -7,10 +7,6 @@ build/
 .externalNativeBuild
 .cxx
 *.apk
-# libs/ holds jars we must ship (exp4j, ExagearApacheCommons). The big prebuilt
-# .aar renderer bundles are NOT committed - their .so files live in jniLibs/ instead.
 app_pojavlauncher/libs/*.aar
 
-# Signing: the public release keystore is intentionally committed so that anyone
-# can reproduce an identically-signed build. Do NOT put a Play upload key here.
 !nova-release.jks

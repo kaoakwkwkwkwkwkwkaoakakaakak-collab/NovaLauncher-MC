@@ -25,6 +25,13 @@ public final class NovaPrefs {
     public static final String KEY_SHIZUKU_PRIORITY = "shizukuPriority";
     public static final String KEY_SHIZUKU_LOGCAT = "shizukuLogcat";
 
+    public static final String KEY_THEME_ACCENT = "themeAccent";
+    public static final String KEY_THEME_DYNAMIC = "themeDynamic";
+    public static final String KEY_THEME_TRANSITION = "themeTransition";
+    public static final String KEY_THEME_UI_SCALE = "themeUiScale";
+    public static final String KEY_THEME_BACKGROUND = "themeBackground";
+    public static final String KEY_THEME_BACKGROUND_ALPHA = "themeBackgroundAlpha";
+
     private NovaPrefs() {}
 
     private static SharedPreferences prefs() {
@@ -57,6 +64,16 @@ public final class NovaPrefs {
             p.edit().putString("renderer", rendererId).apply();
             LauncherPreferences.PREF_RENDERER = rendererId;
         }
+    }
+
+    public static String getString(String key, String def) {
+        SharedPreferences p = prefs();
+        return p == null ? def : p.getString(key, def);
+    }
+
+    public static int getInt(String key, int def) {
+        SharedPreferences p = prefs();
+        return p == null ? def : p.getInt(key, def);
     }
 
     public static void setRam(int megabytes) {

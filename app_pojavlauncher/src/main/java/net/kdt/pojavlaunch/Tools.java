@@ -397,8 +397,6 @@ public final class Tools {
                     .setCancelable(!exitIfOk);
             AlertDialog dialog = builder.create();
             dialog.show();
-            // Keep the plain "copy the crash" path that the AI button replaced: long-pressing
-            // the neutral button copies the full report (with the system log when Shizuku is on).
             Button neutral = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
             if (neutral != null) {
                 neutral.setOnLongClickListener(v -> {
@@ -417,10 +415,6 @@ public final class Tools {
         }
     }
 
-    /**
-     * Build a crash report. When the user has enabled the Shizuku full-log option, the system
-     * logcat is appended, which captures native/driver errors that never reach our own logger.
-     */
     public static String collectReport(Throwable e) {
         StringBuilder sb = new StringBuilder(printToString(e));
         try {
@@ -431,7 +425,6 @@ public final class Tools {
                 for (String line : systemLog) sb.append(line).append('\n');
             }
         } catch (Throwable ignored) {
-            // Never let report collection mask the original crash.
         }
         return sb.toString();
     }

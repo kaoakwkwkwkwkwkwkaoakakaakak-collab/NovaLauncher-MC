@@ -43,10 +43,6 @@ public class NewJREUtil {
         MultiRTUtils.writeLastUpdateTime(internalRuntime.name, System.currentTimeMillis() / 1000L);
     }
 
-    /**
-     * Install a runtime straight out of the APK assets, if this build bundles it.
-     * @return true if the runtime is now installed from assets.
-     */
     private static boolean unpackBundledRuntime(AssetManager assetManager, InternalRuntime internalRuntime) {
         String base = internalRuntime.path;
         String platformBinFile = "bin-" + archAsString(Tools.DEVICE_ARCHITECTURE) + ".tar.xz";
@@ -63,7 +59,6 @@ public class NewJREUtil {
             Log.i("NewJreUtil", "Installed bundled runtime " + internalRuntime.name);
             return true;
         } catch (IOException e) {
-            // This build simply does not bundle that runtime (noruntime flavour); fall back to network.
             Log.i("NewJreUtil", "No bundled runtime for " + internalRuntime.name + ": " + e.getMessage());
             return false;
         }
@@ -73,7 +68,6 @@ public class NewJREUtil {
         String remote_runtime_version;
         String installed_runtime_version = MultiRTUtils.readInternalRuntimeVersion(internalRuntime.name);
         if(installed_runtime_version != null && checkLastUpdateTime(internalRuntime)) return;
-        // Prefer the copy shipped inside the APK: it works with no network and no signature server.
         if(installed_runtime_version == null && unpackBundledRuntime(assetManager, internalRuntime)) {
             writeLastUpdateTime(internalRuntime);
             return;

@@ -267,8 +267,6 @@ public class GameRunner {
 
         javaArgList.addAll(JREUtils.parseJavaArguments(instance.getLaunchArgs()));
 
-        // Apply the optional Shizuku tweaks (phantom process limit, priority) right before the
-        // JVM comes up. No-op when Shizuku is absent or disabled.
         net.kdt.pojavlaunch.nova.NovaShizuku.applyBeforeLaunch(activity.getApplicationContext());
 
         JREUtils.setEnviroimentForGame(activity, rendererName);
@@ -443,8 +441,6 @@ public class GameRunner {
     public static @NonNull String pickRuntime(Instance instance, int targetJavaVersion) {
         String runtime = Tools.getSelectedRuntime(instance);
         String profileRuntime = instance.selectedRuntime;
-        // read() must not be called with a null name: the previous code dereferenced the result
-        // before the null check, so a fresh instance with no runtime crashed here.
         Runtime pickedRuntime = runtime == null ? null : MultiRTUtils.read(runtime);
         if(runtime == null || pickedRuntime == null || pickedRuntime.javaVersion == 0 || pickedRuntime.javaVersion < targetJavaVersion) {
             String preferredRuntime = MultiRTUtils.getNearestJreName(targetJavaVersion);

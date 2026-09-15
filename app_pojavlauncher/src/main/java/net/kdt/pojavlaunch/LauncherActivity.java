@@ -163,8 +163,10 @@ public class LauncherActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        net.kdt.pojavlaunch.nova.NovaTheme.applyUiScale(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pojav_launcher);
+        net.kdt.pojavlaunch.nova.NovaTheme.applyStatusBar(this);
 
         try {
             Os.setenv("TMPDIR", Tools.DIR_CACHE.getAbsolutePath(), true);
@@ -177,6 +179,10 @@ public class LauncherActivity extends BaseActivity {
 
         getWindow().setBackgroundDrawable(null);
         bindViews();
+        android.view.View novaRoot = findViewById(android.R.id.content);
+        if (novaRoot != null) {
+            novaRoot.post(() -> net.kdt.pojavlaunch.nova.NovaTheme.applyBackground(this, novaRoot));
+        }
         mRequestPermissionLauncher = this.registerForActivityResult(
                 new ActivityResultContracts.RequestPermission(),
                 isAllowed -> {

@@ -34,6 +34,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void startActivity(Intent i) {
         super.startActivity(i);
+        net.kdt.pojavlaunch.nova.NovaTransitions.apply(this);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        net.kdt.pojavlaunch.nova.NovaTransitions.apply(this);
     }
 
     @Override
