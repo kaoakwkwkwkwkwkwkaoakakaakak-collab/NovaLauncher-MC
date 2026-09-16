@@ -668,4 +668,27 @@
     <string name="nova_tools_lan_none">No LAN games found. Make sure the host opened their world to LAN and is on the same Wi-Fi</string>
     <string name="nova_tools_lan_found">LAN games found</string>
     <string name="nova_tools_lan_copied">Copied %1$s. Add it as a server in game</string>
+
+    <string name="nova_performance_title">Performance profiles</string>
+    <string name="nova_performance_summary">One-tap tuning presets and your play statistics</string>
+    <string name="nova_profile_category">Profile</string>
+    <string name="nova_profile_title">Performance profile</string>
+    <string name="nova_profile_battery">Battery saver</string>
+    <string name="nova_profile_balanced">Balanced</string>
+    <string name="nova_profile_performance">Performance</string>
+    <string name="nova_profile_extreme">Extreme</string>
+    <string name="nova_profile_apply_title">Apply profile</string>
+    <string name="nova_profile_apply_summary">Set RAM, renderer and every booster toggle to match the chosen profile</string>
+    <string name="nova_profile_apply_confirm">Apply %1$s?\n\nRAM: %2$d MB\nRenderer: %3$s\n\nThis overwrites your current booster toggles.</string>
+    <string name="nova_profile_applied">Profile applied</string>
+
+    <string name="nova_stats_category">Statistics</string>
+    <string name="nova_stats_title">Play time</string>
+    <string name="nova_stats_none">No games launched yet</string>
+    <string name="nova_stats_summary">%1$s played across %2$d launches, %3$d crashes</string>
+    <string name="nova_stats_versions_title">Time per version</string>
+    <string name="nova_stats_versions_summary">See which Minecraft versions you play most</string>
+    <string name="nova_stats_reset_title">Reset statistics</string>
+    <string name="nova_stats_reset_summary">Clear play time, launch and crash counters</string>
+    <string name="nova_stats_reset_confirm">Delete all recorded statistics?</string>
 </resources>

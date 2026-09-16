@@ -1,30 +1,30 @@
 package net.kdt.pojavlaunch.nova;
-
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.util.Log;
-
 import androidx.annotation.Nullable;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
 public final class NovaShizuku {
 
     private static final String TAG = "NovaShizuku";
+
     public static final String SHIZUKU_PACKAGE = "moe.shizuku.privileged.api";
+
     private static final String SHIZUKU_CLASS = "rikka.shizuku.Shizuku";
+
     private static final int REQUEST_CODE = 5122;
 
     private NovaShizuku() {}
 
     public static final class Result {
-        public final boolean ok;
-        public final String output;
 
+        public final boolean ok;
+
+        public final String output;
         Result(boolean ok, String output) {
             this.ok = ok;
             this.output = output == null ? "" : output;
@@ -110,7 +110,6 @@ public final class NovaShizuku {
             Object raw = newProcess.invoke(null, command, null, null);
             if (!(raw instanceof Process)) return new Result(false, "Unexpected process type");
             process = (Process) raw;
-
             StringBuilder sb = new StringBuilder();
             try (BufferedReader reader = new BufferedReader(
                     new InputStreamReader(process.getInputStream()))) {

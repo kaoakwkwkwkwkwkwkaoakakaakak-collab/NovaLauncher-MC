@@ -1,36 +1,51 @@
 package net.kdt.pojavlaunch.nova;
-
 import android.content.SharedPreferences;
-
 import net.kdt.pojavlaunch.prefs.LauncherPreferences;
-
 public final class NovaPrefs {
 
     public static final String KEY_API = "novaOpenRouterKey";
 
     public static final String KEY_BOOST_MASTER = "boostMaster";
+
     public static final String KEY_BOOST_CHUNK = "boostChunkThreads";
+
     public static final String KEY_BOOST_GC = "boostAggressiveGc";
+
     public static final String KEY_BOOST_JIT = "boostJitTuning";
+
     public static final String KEY_BOOST_TEXTURE = "boostTextureStreaming";
+
     public static final String KEY_BOOST_VSYNC_OFF = "boostDisableVsync";
+
     public static final String KEY_BOOST_AFFINITY = "boostBigCoreAffinity";
+
     public static final String KEY_BOOST_PREALLOC = "boostHeapPrealloc";
+
     public static final String KEY_BOOST_SOUND = "boostReduceSoundChannels";
+
     public static final String KEY_BOOST_ANIM = "boostDisableAnimations";
 
-    // Shizuku / Sui integration
     public static final String KEY_SHIZUKU_ENABLE = "shizukuEnable";
+
     public static final String KEY_SHIZUKU_PHANTOM = "shizukuPhantom";
+
     public static final String KEY_SHIZUKU_PRIORITY = "shizukuPriority";
+
     public static final String KEY_SHIZUKU_LOGCAT = "shizukuLogcat";
 
     public static final String KEY_THEME_ACCENT = "themeAccent";
+
     public static final String KEY_THEME_DYNAMIC = "themeDynamic";
+
     public static final String KEY_THEME_TRANSITION = "themeTransition";
+
     public static final String KEY_THEME_UI_SCALE = "themeUiScale";
+
     public static final String KEY_THEME_BACKGROUND = "themeBackground";
+
     public static final String KEY_THEME_BACKGROUND_ALPHA = "themeBackgroundAlpha";
+
+    public static final String KEY_PERF_PROFILE = "perfProfile";
 
     private NovaPrefs() {}
 

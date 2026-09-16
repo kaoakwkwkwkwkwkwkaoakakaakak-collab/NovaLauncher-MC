@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <net.kdt.pojavlaunch.prefs.BackButtonPreference/>
+
+    <PreferenceCategory android:title="@string/nova_profile_category">
+
+        <ListPreference
+            android:key="perfProfile"
+            android:title="@string/nova_profile_title"
+            android:summary="%s"
+            android:entries="@array/nova_profile_names"
+            android:entryValues="@array/nova_profile_values"
+            android:defaultValue="balanced"
+            android:icon="@drawable/ic_px_dynamic"/>
+
+        <Preference
+            android:key="perfApply"
+            android:title="@string/nova_profile_apply_title"
+            android:summary="@string/nova_profile_apply_summary"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/nova_stats_category">
+
+        <Preference
+            android:key="statsSummary"
+            android:title="@string/nova_stats_title"
+            android:summary="@string/nova_stats_none"
+            android:selectable="false"/>
+
+        <Preference
+            android:key="statsPerVersion"
+            android:title="@string/nova_stats_versions_title"
+            android:summary="@string/nova_stats_versions_summary"/>
+
+        <Preference
+            android:key="statsReset"
+            android:title="@string/nova_stats_reset_title"
+            android:summary="@string/nova_stats_reset_summary"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

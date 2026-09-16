@@ -268,6 +268,7 @@ public class GameRunner {
         javaArgList.addAll(JREUtils.parseJavaArguments(instance.getLaunchArgs()));
 
         net.kdt.pojavlaunch.nova.NovaShizuku.applyBeforeLaunch(activity.getApplicationContext());
+        net.kdt.pojavlaunch.nova.NovaStats.onLaunch(activity.getApplicationContext(), versionId);
 
         JREUtils.setEnviroimentForGame(activity, rendererName);
         JREUtils.chdir(instance.getGameDirectory().getAbsolutePath());

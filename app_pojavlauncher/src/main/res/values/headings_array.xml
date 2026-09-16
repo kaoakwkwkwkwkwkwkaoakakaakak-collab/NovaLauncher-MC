@@ -92,4 +92,18 @@
         <item>none</item>
     </string-array>
 
+    <string-array name="nova_profile_names">
+        <item>@string/nova_profile_battery</item>
+        <item>@string/nova_profile_balanced</item>
+        <item>@string/nova_profile_performance</item>
+        <item>@string/nova_profile_extreme</item>
+    </string-array>
+
+    <string-array name="nova_profile_values">
+        <item>battery</item>
+        <item>balanced</item>
+        <item>performance</item>
+        <item>extreme</item>
+    </string-array>
+
 </resources>

@@ -1,24 +1,24 @@
 package net.kdt.pojavlaunch.nova;
-
 import android.content.Context;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 public final class NovaOptimizer {
 
     private NovaOptimizer() {}
 
     public static final class Plan {
-        public final String renderer;
-        public final int ramMb;
-        public final List<String> boostKeys;
-        public final String summary;
-        public final String error;
 
+        public final String renderer;
+
+        public final int ramMb;
+
+        public final List<String> boostKeys;
+
+        public final String summary;
+
+        public final String error;
         Plan(String renderer, int ramMb, List<String> boostKeys, String summary, String error) {
             this.renderer = renderer;
             this.ramMb = ramMb;
@@ -34,7 +34,6 @@ public final class NovaOptimizer {
 
     public static Plan analyse(Context context, String installedMods) {
         int totalRam = NovaAI.totalRamMb(context);
-
         StringBuilder prompt = new StringBuilder();
         prompt.append("You are tuning an Android Minecraft Java Edition launcher.\n\n");
         prompt.append(NovaAI.describeDevice(context));
@@ -48,28 +47,23 @@ public final class NovaOptimizer {
         prompt.append("boostChunkThreads, boostAggressiveGc, boostJitTuning, boostTextureStreaming, ");
         prompt.append("boostDisableVsync, boostBigCoreAffinity, boostHeapPrealloc, ");
         prompt.append("boostReduceSoundChannels, boostDisableAnimations\n");
-
         if (installedMods != null && !installedMods.trim().isEmpty()) {
             prompt.append("\nInstalled mods:\n").append(installedMods).append('\n');
         }
-
         prompt.append("\nPick the best renderer, a safe RAM allocation in MB (never above ")
                 .append(Math.max(1024, (int) (totalRam * 0.55)))
                 .append("), and the toggles to enable.\n");
         prompt.append("Reply with ONLY a JSON object, no prose, no code fences, shaped exactly like:\n");
         prompt.append("{\"renderer\":\"<id>\",\"ram_mb\":<int>,\"toggles\":[\"<key>\"],\"summary\":\"<one short sentence>\"}");
-
         NovaAI.Reply reply = NovaAI.ask(prompt.toString());
         if (!reply.ok()) {
             return new Plan(null, 0, null, null, reply.error);
         }
-
         try {
             JSONObject json = new JSONObject(extractJson(reply.content));
             String renderer = json.optString("renderer", "").trim();
             int ram = json.optInt("ram_mb", 0);
             String summary = json.optString("summary", "").trim();
-
             List<String> toggles = new ArrayList<>();
             org.json.JSONArray array = json.optJSONArray("toggles");
             if (array != null) {
@@ -78,13 +72,11 @@ public final class NovaOptimizer {
                     if (!key.isEmpty()) toggles.add(key);
                 }
             }
-
             if (ram > 0) {
                 int ceiling = Math.max(1024, (int) (totalRam * 0.6));
                 ram = Math.min(ram, ceiling);
                 ram = Math.max(ram, 512);
             }
-
             return new Plan(renderer, ram, toggles, summary, null);
         } catch (Exception e) {
             return new Plan(null, 0, null, null,
@@ -94,7 +86,6 @@ public final class NovaOptimizer {
 
     public static void apply(Plan plan) {
         if (plan == null || !plan.ok()) return;
-
         if (plan.renderer != null && !plan.renderer.isEmpty()) {
             NovaPrefs.setRenderer(plan.renderer);
         }
@@ -112,7 +103,6 @@ public final class NovaOptimizer {
     public static String render(Plan plan) {
         if (plan == null) return "";
         if (!plan.ok()) return plan.error;
-
         StringBuilder sb = new StringBuilder();
         if (plan.summary != null && !plan.summary.isEmpty()) {
             sb.append(plan.summary).append("\n\n");

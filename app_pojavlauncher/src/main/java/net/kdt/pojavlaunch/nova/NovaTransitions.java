@@ -1,15 +1,16 @@
 package net.kdt.pojavlaunch.nova;
-
 import android.app.Activity;
-
 import git.artdeell.mojo.R;
-
 public final class NovaTransitions {
 
     public static final String NONE = "none";
+
     public static final String SLIDE = "slide";
+
     public static final String FADE = "fade";
+
     public static final String ZOOM = "zoom";
+
     public static final String BOUNCE = "bounce";
 
     private NovaTransitions() {}

@@ -1,12 +1,9 @@
 package net.kdt.pojavlaunch.nova;
-
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Build;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,7 +13,6 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
 public final class NovaAI {
 
     private static final int K = 0x5C;
@@ -38,7 +34,9 @@ public final class NovaAI {
     }
 
     private static final String ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+
     private static final String MODEL = "nvidia/nemotron-3-ultra-550b-a55b:free";
+
     private static final int TIMEOUT_MS = 45000;
 
     private NovaAI() {}
@@ -55,8 +53,11 @@ public final class NovaAI {
     }
 
     public static final class Turn {
+
         public final String role;
+
         public final String content;
+
         public final JSONArray reasoningDetails;
 
         public Turn(String role, String content, JSONArray reasoningDetails) {
@@ -67,10 +68,12 @@ public final class NovaAI {
     }
 
     public static final class Reply {
-        public final String content;
-        public final JSONArray reasoningDetails;
-        public final String error;
 
+        public final String content;
+
+        public final JSONArray reasoningDetails;
+
+        public final String error;
         Reply(String content, JSONArray reasoningDetails, String error) {
             this.content = content;
             this.reasoningDetails = reasoningDetails;
@@ -98,15 +101,12 @@ public final class NovaAI {
                 }
                 messages.put(entry);
             }
-
             JSONObject reasoning = new JSONObject();
             reasoning.put("enabled", true);
-
             JSONObject payload = new JSONObject();
             payload.put("model", MODEL);
             payload.put("messages", messages);
             payload.put("reasoning", reasoning);
-
             connection = (HttpURLConnection) new URL(ENDPOINT).openConnection();
             connection.setRequestMethod("POST");
             connection.setConnectTimeout(TIMEOUT_MS);
@@ -115,20 +115,16 @@ public final class NovaAI {
             connection.setRequestProperty("Authorization", "Bearer " + resolveKey());
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("X-Title", "NovaLauncher");
-
             byte[] body = payload.toString().getBytes(StandardCharsets.UTF_8);
             try (OutputStream out = connection.getOutputStream()) {
                 out.write(body);
             }
-
             int status = connection.getResponseCode();
             InputStream stream = status >= 400 ? connection.getErrorStream() : connection.getInputStream();
             String text = readAll(stream);
-
             if (status >= 400) {
                 return new Reply(null, null, "OpenRouter returned " + status + ": " + trim(text, 400));
             }
-
             JSONObject root = new JSONObject(text);
             JSONArray choices = root.optJSONArray("choices");
             if (choices == null || choices.length() == 0) {

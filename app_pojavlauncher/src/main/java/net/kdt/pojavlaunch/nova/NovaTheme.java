@@ -1,5 +1,4 @@
 package net.kdt.pojavlaunch.nova;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,20 +11,17 @@ import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-
 import net.kdt.pojavlaunch.Tools;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import git.artdeell.mojo.R;
-
 public final class NovaTheme {
 
     private static final String TAG = "NovaTheme";
+
     private static final String BACKGROUND_NAME = "nova_background.png";
 
     public static final String[] ACCENT_VALUES = {
@@ -133,17 +129,14 @@ public final class NovaTheme {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inJustDecodeBounds = true;
             BitmapFactory.decodeFile(backgroundFile().getAbsolutePath(), options);
-
             int targetWidth = Math.max(1, root.getWidth() > 0
                     ? root.getWidth() : activity.getResources().getDisplayMetrics().widthPixels);
             int sample = 1;
             while (options.outWidth / sample > targetWidth * 2) sample *= 2;
-
             BitmapFactory.Options decode = new BitmapFactory.Options();
             decode.inSampleSize = sample;
             Bitmap bitmap = BitmapFactory.decodeFile(backgroundFile().getAbsolutePath(), decode);
             if (bitmap == null) return;
-
             Drawable drawable = new BitmapDrawable(activity.getResources(), bitmap);
             drawable.setAlpha(backgroundAlpha());
             root.setBackground(drawable);

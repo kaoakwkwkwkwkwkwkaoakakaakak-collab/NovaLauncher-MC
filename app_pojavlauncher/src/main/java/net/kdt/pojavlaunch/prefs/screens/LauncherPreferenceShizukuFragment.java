@@ -1,21 +1,15 @@
 package net.kdt.pojavlaunch.prefs.screens;
-
 import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.preference.Preference;
-
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.nova.NovaShizuku;
-
 import git.artdeell.mojo.R;
-
 public class LauncherPreferenceShizukuFragment extends LauncherPreferenceFragment {
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.pref_shizuku);
-
         Preference status = findPreference("shizukuStatus");
         if (status != null) {
             status.setOnPreferenceClickListener(p -> {
@@ -29,7 +23,6 @@ public class LauncherPreferenceShizukuFragment extends LauncherPreferenceFragmen
                 return true;
             });
         }
-
         Preference grant = findPreference("shizukuGrant");
         if (grant != null) {
             grant.setOnPreferenceClickListener(p -> {
@@ -47,7 +40,6 @@ public class LauncherPreferenceShizukuFragment extends LauncherPreferenceFragmen
                 return true;
             });
         }
-
         refreshStatus();
     }
 

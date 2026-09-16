@@ -1,5 +1,4 @@
 package net.kdt.pojavlaunch.nova;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -7,23 +6,21 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import git.artdeell.mojo.R;
-
 public final class NovaErrorFixer {
 
     private static final ExecutorService POOL = Executors.newSingleThreadExecutor();
+
     private static final Handler MAIN = new Handler(Looper.getMainLooper());
+
     private static final int MAX_LOG = 6000;
 
     private NovaErrorFixer() {}
 
     public static void diagnose(Activity activity, String errorText, Throwable throwable) {
         if (activity == null || activity.isFinishing()) return;
-
         if (!NovaAI.hasKey()) {
             new AlertDialog.Builder(activity)
                     .setTitle(R.string.nova_ai_fixer_title)
@@ -32,22 +29,18 @@ public final class NovaErrorFixer {
                     .show();
             return;
         }
-
         final TextView body = new TextView(activity);
         int pad = (int) (16 * activity.getResources().getDisplayMetrics().density);
         body.setPadding(pad, pad, pad, pad);
         body.setText(R.string.nova_ai_working);
         body.setMovementMethod(new ScrollingMovementMethod());
-
         final AlertDialog dialog = new AlertDialog.Builder(activity)
                 .setTitle(R.string.nova_ai_fixer_title)
                 .setView(body)
                 .setPositiveButton(android.R.string.ok, null)
                 .create();
         dialog.show();
-
         final String prompt = buildPrompt(activity, errorText, throwable);
-
         POOL.execute(() -> {
             final NovaAI.Reply reply = NovaAI.ask(prompt);
             MAIN.post(() -> {
@@ -69,7 +62,6 @@ public final class NovaErrorFixer {
                 net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_RENDERER).append('\n');
         sb.append("RAM allocated: ").append(
                 net.kdt.pojavlaunch.prefs.LauncherPreferences.PREF_RAM_ALLOCATION).append(" MB\n\n");
-
         if (errorText != null && !errorText.isEmpty()) {
             sb.append("Error:\n").append(clip(errorText)).append('\n');
         }

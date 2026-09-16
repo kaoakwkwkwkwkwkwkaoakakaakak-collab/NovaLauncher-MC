@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.nova;
-
 import android.util.Log;
-
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -15,23 +13,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 public final class NovaLanScanner {
 
     private static final String TAG = "NovaLanScanner";
+
     private static final String GROUP = "224.0.2.60";
+
     private static final int PORT = 4445;
 
     private static final Pattern MOTD = Pattern.compile("\\[MOTD](.*?)\\[/MOTD]");
+
     private static final Pattern AD = Pattern.compile("\\[AD](.*?)\\[/AD]");
 
     private NovaLanScanner() {}
 
     public static final class LanServer {
-        public final String motd;
-        public final String address;
-        public final int port;
 
+        public final String motd;
+
+        public final String address;
+
+        public final int port;
         LanServer(String motd, String address, int port) {
             this.motd = motd;
             this.address = address;
@@ -59,7 +61,6 @@ public final class NovaLanScanner {
             socket = new MulticastSocket(PORT);
             socket.setReuseAddress(true);
             socket.setSoTimeout(500);
-
             InetAddress group = InetAddress.getByName(GROUP);
             NetworkInterface networkInterface = firstUsableInterface();
             try {
@@ -71,10 +72,8 @@ public final class NovaLanScanner {
             } catch (IOException e) {
                 socket.joinGroup(group);
             }
-
             byte[] buffer = new byte[1024];
             long deadline = System.currentTimeMillis() + Math.max(1000, timeoutMs);
-
             while (System.currentTimeMillis() < deadline) {
                 DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
                 try {
@@ -82,12 +81,10 @@ public final class NovaLanScanner {
                 } catch (java.net.SocketTimeoutException e) {
                     continue;
                 }
-
                 String message = new String(packet.getData(), 0, packet.getLength(),
                         StandardCharsets.UTF_8);
                 LanServer server = parse(message, packet.getAddress().getHostAddress());
                 if (server == null) continue;
-
                 if (found.put(server.connectAddress(), server) == null && listener != null) {
                     listener.onServerFound(server);
                 }

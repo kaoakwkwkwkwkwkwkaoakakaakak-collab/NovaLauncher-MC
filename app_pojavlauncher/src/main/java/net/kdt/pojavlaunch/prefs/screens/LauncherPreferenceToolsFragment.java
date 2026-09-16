@@ -1,28 +1,22 @@
 package net.kdt.pojavlaunch.prefs.screens;
-
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
-
 import net.kdt.pojavlaunch.PojavApplication;
 import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.nova.NovaBackup;
 import net.kdt.pojavlaunch.nova.NovaLanScanner;
 import net.kdt.pojavlaunch.nova.NovaLogUpload;
-
 import java.io.File;
 import java.util.List;
-
 import git.artdeell.mojo.R;
-
 public class LauncherPreferenceToolsFragment extends LauncherPreferenceFragment {
 
     private final ActivityResultLauncher<String> mCreateBackup = registerForActivityResult(
@@ -34,7 +28,6 @@ public class LauncherPreferenceToolsFragment extends LauncherPreferenceFragment 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.pref_tools);
-
         bind("toolsUploadLog", this::uploadLog);
         bind("toolsExport", () -> mCreateBackup.launch(NovaBackup.defaultFileName()));
         bind("toolsImport", () -> mOpenBackup.launch(new String[]{"application/zip"}));

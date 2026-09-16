@@ -1,7 +1,5 @@
 package net.kdt.pojavlaunch.nova;
-
 import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -13,11 +11,12 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
 public final class NovaLogUpload {
 
     private static final String ENDPOINT = "https://api.mclo.gs/1/log";
+
     private static final int MAX_CHARS = 10 * 1024 * 1024;
+
     private static final int MAX_LINES = 25000;
 
     private NovaLogUpload() {}
@@ -27,7 +26,6 @@ public final class NovaLogUpload {
             throw new IOException("Nothing to upload");
         }
         content = trim(content);
-
         HttpURLConnection connection = (HttpURLConnection) new URL(ENDPOINT).openConnection();
         try {
             connection.setRequestMethod("POST");
@@ -36,14 +34,12 @@ public final class NovaLogUpload {
             connection.setReadTimeout(30000);
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             connection.setRequestProperty("User-Agent", "NovaLauncher");
-
             byte[] body = ("content=" + URLEncoder.encode(content, "UTF-8"))
                     .getBytes(StandardCharsets.UTF_8);
             connection.setFixedLengthStreamingMode(body.length);
             try (DataOutputStream out = new DataOutputStream(connection.getOutputStream())) {
                 out.write(body);
             }
-
             int code = connection.getResponseCode();
             StringBuilder response = new StringBuilder();
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
@@ -52,7 +48,6 @@ public final class NovaLogUpload {
                 String line;
                 while ((line = reader.readLine()) != null) response.append(line);
             }
-
             String raw = response.toString();
             String url = extract(raw, "url");
             if (url != null && !url.isEmpty()) return url;

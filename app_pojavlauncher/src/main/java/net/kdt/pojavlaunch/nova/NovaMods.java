@@ -1,10 +1,7 @@
 package net.kdt.pojavlaunch.nova;
-
 import net.kdt.pojavlaunch.utils.DownloadUtils;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -14,23 +11,29 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
 public final class NovaMods {
 
     private static final String API = "https://api.modrinth.com/v2";
+
     private static final int TIMEOUT_MS = 20000;
 
     private NovaMods() {}
 
     public static final class Mod {
-        public final String projectId;
-        public final String slug;
-        public final String title;
-        public final String description;
-        public final String author;
-        public final int downloads;
-        public final String iconUrl;
 
+        public final String projectId;
+
+        public final String slug;
+
+        public final String title;
+
+        public final String description;
+
+        public final String author;
+
+        public final int downloads;
+
+        public final String iconUrl;
         Mod(String projectId, String slug, String title, String description,
             String author, int downloads, String iconUrl) {
             this.projectId = projectId;
@@ -50,9 +53,10 @@ public final class NovaMods {
     }
 
     public static final class ModFile {
-        public final String url;
-        public final String fileName;
 
+        public final String url;
+
+        public final String fileName;
         ModFile(String url, String fileName) {
             this.url = url;
             this.fileName = fileName;
@@ -69,16 +73,13 @@ public final class NovaMods {
             facets.append(",[\"categories:").append(loader.toLowerCase()).append("\"]");
         }
         facets.append(']');
-
         String url = API + "/search?limit=40&index=relevance"
                 + "&query=" + enc(query == null ? "" : query)
                 + "&facets=" + enc(facets.toString());
-
         JSONObject root = new JSONObject(get(url));
         JSONArray hits = root.optJSONArray("hits");
         List<Mod> out = new ArrayList<>();
         if (hits == null) return out;
-
         for (int i = 0; i < hits.length(); i++) {
             JSONObject hit = hits.getJSONObject(i);
             out.add(new Mod(
@@ -106,14 +107,11 @@ public final class NovaMods {
             url.append(first ? "?" : "&")
                .append("loaders=").append(enc("[\"" + loader.toLowerCase() + "\"]"));
         }
-
         JSONArray versions = new JSONArray(get(url.toString()));
         if (versions.length() == 0) return null;
-
         JSONObject version = versions.getJSONObject(0);
         JSONArray files = version.optJSONArray("files");
         if (files == null || files.length() == 0) return null;
-
         JSONObject chosen = files.getJSONObject(0);
         for (int i = 0; i < files.length(); i++) {
             JSONObject candidate = files.getJSONObject(i);

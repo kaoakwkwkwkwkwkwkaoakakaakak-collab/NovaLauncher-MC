@@ -340,6 +340,7 @@ public class GameActivity extends BaseActivity implements ControlButtonMenuListe
 
     @Override
     protected void onDestroy() {
+        net.kdt.pojavlaunch.nova.NovaStats.onExit(getApplicationContext());
         super.onDestroy();
         ContextExecutor.clearActivity();
     }

@@ -60,6 +60,13 @@
             android:icon="@drawable/ic_px_dynamic"/>
 
         <Preference
+            android:key="performance_screen_setting"
+            android:title="@string/nova_performance_title"
+            android:summary="@string/nova_performance_summary"
+            android:fragment="net.kdt.pojavlaunch.prefs.screens.LauncherPreferencePerformanceFragment"
+            android:icon="@drawable/ic_px_dynamic"/>
+
+        <Preference
             android:key="theme_screen_setting"
             android:title="@string/nova_theme_title"
             android:summary="@string/nova_theme_summary"

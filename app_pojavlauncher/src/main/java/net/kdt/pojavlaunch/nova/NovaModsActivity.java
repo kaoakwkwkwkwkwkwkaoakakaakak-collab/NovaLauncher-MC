@@ -1,5 +1,4 @@
 package net.kdt.pojavlaunch.nova;
-
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -20,49 +19,45 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import net.kdt.pojavlaunch.BaseActivity;
 import net.kdt.pojavlaunch.instances.Instance;
 import net.kdt.pojavlaunch.instances.Instances;
-
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import git.artdeell.mojo.R;
-
 public class NovaModsActivity extends BaseActivity {
 
     private static final ExecutorService POOL = Executors.newFixedThreadPool(2);
+
     private static final Handler MAIN = new Handler(Looper.getMainLooper());
 
     private LinearLayout mList;
+
     private ProgressBar mSpinner;
+
     private TextView mStatus;
+
     private Instance mInstance;
+
     private long mQueryToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mInstance = Instances.loadSelectedInstance();
-
         float d = getResources().getDisplayMetrics().density;
         int pad = (int) (16 * d);
-
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
         root.setBackgroundColor(0xFF0B0E13);
         root.setPadding(pad, pad, pad, pad);
-
         TextView title = new TextView(this);
         title.setText(R.string.nova_mods_title);
         title.setTextColor(Color.WHITE);
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
         root.addView(title);
-
         TextView subtitle = new TextView(this);
         subtitle.setTextColor(0xFFC3C6CF);
         subtitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
@@ -71,7 +66,6 @@ public class NovaModsActivity extends BaseActivity {
                 : mInstance.name + "  ·  " + safeVersion());
         subtitle.setPadding(0, (int) (2 * d), 0, pad);
         root.addView(subtitle);
-
         final EditText search = new EditText(this);
         search.setHint(R.string.nova_mods_search);
         search.setSingleLine(true);
@@ -84,7 +78,6 @@ public class NovaModsActivity extends BaseActivity {
         field.setStroke((int) d, 0x22FFFFFF);
         search.setBackground(field);
         root.addView(search);
-
         mSpinner = new ProgressBar(this);
         mSpinner.setVisibility(View.GONE);
         LinearLayout.LayoutParams sp = new LinearLayout.LayoutParams(
@@ -93,14 +86,12 @@ public class NovaModsActivity extends BaseActivity {
         sp.topMargin = pad;
         mSpinner.setLayoutParams(sp);
         root.addView(mSpinner);
-
         mStatus = new TextView(this);
         mStatus.setTextColor(0xFF8D909A);
         mStatus.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
         mStatus.setPadding(0, pad, 0, 0);
         mStatus.setVisibility(View.GONE);
         root.addView(mStatus);
-
         ScrollView scroller = new ScrollView(this);
         scroller.setLayoutParams(new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
@@ -109,10 +100,9 @@ public class NovaModsActivity extends BaseActivity {
         mList.setPadding(0, pad, 0, 0);
         scroller.addView(mList);
         root.addView(scroller);
-
         setContentView(root);
-
         search.addTextChangedListener(new TextWatcher() {
+
             @Override public void beforeTextChanged(CharSequence s, int a, int b, int c) {}
             @Override public void onTextChanged(CharSequence s, int a, int b, int c) {}
             @Override public void afterTextChanged(Editable e) {
@@ -123,7 +113,6 @@ public class NovaModsActivity extends BaseActivity {
                 }, 350);
             }
         });
-
         runSearch("");
     }
 
@@ -165,10 +154,8 @@ public class NovaModsActivity extends BaseActivity {
         mSpinner.setVisibility(View.VISIBLE);
         mStatus.setVisibility(View.GONE);
         mList.removeAllViews();
-
         final String version = gameVersion();
         final String loader = loaderId();
-
         POOL.execute(() -> {
             List<NovaMods.Mod> results = null;
             String error = null;
@@ -201,7 +188,6 @@ public class NovaModsActivity extends BaseActivity {
     private View buildRow(final NovaMods.Mod mod, final String version, final String loader) {
         float d = getResources().getDisplayMetrics().density;
         int pad = (int) (14 * d);
-
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.HORIZONTAL);
         card.setGravity(Gravity.CENTER_VERTICAL);
@@ -214,35 +200,29 @@ public class NovaModsActivity extends BaseActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.bottomMargin = (int) (10 * d);
         card.setLayoutParams(lp);
-
         LinearLayout text = new LinearLayout(this);
         text.setOrientation(LinearLayout.VERTICAL);
         text.setLayoutParams(new LinearLayout.LayoutParams(0,
                 ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
-
         TextView name = new TextView(this);
         name.setText(mod.title);
         name.setTextColor(Color.WHITE);
         name.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         name.setSingleLine(true);
         text.addView(name);
-
         TextView desc = new TextView(this);
         desc.setText(mod.description);
         desc.setTextColor(0xFFC3C6CF);
         desc.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         desc.setMaxLines(2);
         text.addView(desc);
-
         TextView meta = new TextView(this);
         meta.setText(mod.downloadsLabel());
         meta.setTextColor(0xFF8D909A);
         meta.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
         meta.setPadding(0, (int) (4 * d), 0, 0);
         text.addView(meta);
-
         card.addView(text);
-
         final TextView action = new TextView(this);
         action.setText(R.string.nova_mods_install);
         action.setTextColor(0xFF0A2478);
@@ -253,7 +233,6 @@ public class NovaModsActivity extends BaseActivity {
         pill.setColor(0xFFAFC2FF);
         action.setBackground(pill);
         card.addView(action);
-
         action.setOnClickListener(v -> {
             if (mInstance == null) {
                 Toast.makeText(this, R.string.nova_mods_no_instance, Toast.LENGTH_SHORT).show();
@@ -263,7 +242,6 @@ public class NovaModsActivity extends BaseActivity {
             Toast.makeText(this,
                     getString(R.string.nova_mods_installing, mod.title),
                     Toast.LENGTH_SHORT).show();
-
             POOL.execute(() -> {
                 boolean ok = false;
                 String failure = null;
@@ -300,7 +278,6 @@ public class NovaModsActivity extends BaseActivity {
                 });
             });
         });
-
         return card;
     }
 }

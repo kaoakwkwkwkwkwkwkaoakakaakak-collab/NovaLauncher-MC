@@ -1,13 +1,8 @@
 package net.kdt.pojavlaunch.prefs.screens;
-
 import android.os.Bundle;
-
 import androidx.preference.PreferenceCategory;
-
 import net.kdt.pojavlaunch.nova.NovaBoost;
-
 import git.artdeell.mojo.R;
-
 public class LauncherPreferenceBoostersFragment extends LauncherPreferenceFragment {
 
     @Override
